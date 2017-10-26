@@ -510,9 +510,11 @@ def roc(series, window=14):
     """
     compute rate of change
     """
-    res = (series - series.shift(window)) / series.shift(window)
+    # get change between last and last - window (close)
+    change = series - series.shift(window)
+    res = change / series.shift(window) * 100
+    # res = sum(series - series.shift(window)) / series.shift(window) * 100
     return pd.Series(index=series.index, data=res)
-
 
 # ---------------------------------------------
 
